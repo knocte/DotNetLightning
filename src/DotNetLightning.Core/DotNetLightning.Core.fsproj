@@ -59,6 +59,7 @@
     <Compile Include="Channel\ChannelTypes.fs" />
     <Compile Include="Channel\CommitmentsModule.fs" />
     <Compile Include="Channel\Channel.fs" />
+    <Compile Include="Payment\PaymentTypes.fs" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Update="FSharp.Core" Version="4.7.0" />
