@@ -14,24 +14,24 @@ let lsatTests =
     testList "LSAT tests" [
         testCase "service decode tests" <| fun _ ->
             let r = Service.ParseMany("a:0")
-            Expect.isOk (Result.ToFSharpCoreResult r) "can parse single service"
+            ExpectIsOk r "can parse single service"
             Expect.equal 1 (r |> Result.deref).Count ""
             Expect.equal "a" (r |> Result.deref).[0].Name ""
             let r = Service.ParseMany("a:0,b:1,c:0")
-            Expect.isOk (Result.ToFSharpCoreResult r) "can parse multiple service"
+            ExpectIsOk r "can parse multiple service"
             Expect.equal 3 (r |> Result.deref).Count ""
             Expect.equal "c" (r |> Result.deref).[2].Name ""
             Expect.equal 0uy (r |> Result.deref).[2].ServiceTier ""
             let r = Service.ParseMany ""
-            Expect.isError (Result.ToFSharpCoreResult r) "can not parse empty service"
+            ExpectIsError r "can not parse empty service"
             let r = Service.ParseMany ":a"
-            Expect.isError (Result.ToFSharpCoreResult r) "can not parse service missing name"
+            ExpectIsError r "can not parse service missing name"
             let r = Service.ParseMany "a"
-            Expect.isError (Result.ToFSharpCoreResult r) "can not parse service missing tier"
+            ExpectIsError r "can not parse service missing tier"
             let r = Service.ParseMany "a:"
-            Expect.isError (Result.ToFSharpCoreResult r) "can not parse service with empty tier"
+            ExpectIsError r "can not parse service with empty tier"
             let r = Service.ParseMany ",,"
-            Expect.isError (Result.ToFSharpCoreResult r) "can not parse empty services"
+            ExpectIsError r "can not parse empty services"
             ()
             
         testList "check macaroon verification works in LSAT compliant way" [

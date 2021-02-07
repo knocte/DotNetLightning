@@ -800,9 +800,9 @@ module SerializationTest =
                     let ba = testCase |> parseBitArray
                     let result = Feature.validateFeatureGraph (ba)
                     if valid then
-                        Expect.isOk (Result.ToFSharpCoreResult result) (testCase)
+                        ExpectIsOk result (testCase)
                     else
-                        Expect.isError (Result.ToFSharpCoreResult result) (testCase)
+                        ExpectIsError result (testCase)
                     )
                 
             testCase "features compatibility (in int64)" <| fun _ ->
