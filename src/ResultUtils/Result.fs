@@ -1,29 +1,14 @@
-namespace ResultUtils.Portability
-
-#if NoDUsAsStructs
-[<StructuralEquality; StructuralComparison>]
-[<CompiledName("FSharpResult`2")>]
-type Result<'T,'TError> =
-    | Ok of ResultValue: 'T
-    | Error of ErrorValue: 'TError
-#endif
-
-
 namespace ResultUtils
 
 open ResultUtils.Portability
 
 [<RequireQualifiedAccess>]
 module Result =
-
-  let ToFSharpCoreResult res =
-#if NoDUsAsStructs
-    match res with
-    | Ok o -> FSharp.Core.Result.Ok o
-    | Error e -> FSharp.Core.Result.Error e
-#else
-    res
-#endif
+  let ToFSharpCoreResult<'T, 'TError> (result: Result<'T, 'TError>)
+                                          : FSharp.Core.Result<'T, 'TError> =
+    match result with
+    | Ok ok -> FSharp.Core.Result.Ok ok
+    | Error err -> FSharp.Core.Result.Error err
 
   let isOk x =
     match x with
