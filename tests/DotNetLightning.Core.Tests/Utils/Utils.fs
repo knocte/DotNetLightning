@@ -4,6 +4,15 @@ module Utils
 open System
 open Expecto
 
+open ResultUtils
+open ResultUtils.Portability
+
+let ExpectIsOk<'T, 'TError> (result: Result<'T, 'TError>) =
+    Expect.isOk (Result.ToFSharpCoreResult result)
+
+let ExpectIsError<'T, 'TError> (result: Result<'T, 'TError>) =
+    Expect.isError (Result.ToFSharpCoreResult result)
+
 let CheckArrayEqual (actual: 'a array) (expected: 'a array) =
     let mutable index = 0
     try
@@ -19,3 +28,4 @@ let CheckArrayEqual (actual: 'a array) (expected: 'a array) =
         | :? IndexOutOfRangeException ->
             Expect.equal actual.[(expected.Length - 50)..(expected.Length - 1)] expected.[(expected.Length - 50)..(expected.Length - 1)] (sprintf "failed in last 50 of expected: %d (actual length was %d)" (expected.Length) (actual.Length))
             Expect.equal actual expected ""
+
