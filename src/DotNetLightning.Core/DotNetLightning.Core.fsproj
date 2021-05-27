@@ -106,7 +106,7 @@
     <PackageReference Include="System.Memory" Version="4.5.3" />
   </ItemGroup>
 
-  <Target Name="CopyProjectReferencesToPackage" DependsOnTargets="AfterResolveReferences">
+  <Target Name="CopyProjectReferencesToPackage" DependsOnTargets="AfterResolveReferences" Condition="'$(MSBuildRuntimeType)'!='Mono'">
     <ItemGroup>
       <BuildOutputInPackage Include="@(ReferenceCopyLocalPaths-&gt;WithMetadataValue('ReferenceSourceTarget', 'ProjectReference'))" />
     </ItemGroup>
